@@ -37,8 +37,15 @@ pipeline {
                 }
             }
         }
-        
-    stage('Docker Build') {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // 1. Build the Docker Image
+                    sh 'docker build -t sumitthelkar/my-app:latest .'
+                }
+            }
+        }
+    stage('Push Docker Build') {
             steps {
                 script {
                     sh 'docker login -u sumitthelkar -p Docker@1234'
