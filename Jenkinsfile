@@ -27,6 +27,17 @@ pipeline {
             }
         }
      
+        stage('sonarqube-analysis') {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                 sh 'mvn clean verify sonar:sonar \
+                    -Dsonar.projectKey=07-HelloWorld-DockerImage-Push-DockerHub \
+                    -Dsonar.host.url=http://35.228.47.4:9000 \
+                    -Dsonar.login=sqp_e611d75bac5dd6996b48a9ba69fdaaa51bd17f3c'
+                }
+            }
+        }
+     
     stage('Build Docker Image') {
             steps {
                 script {
