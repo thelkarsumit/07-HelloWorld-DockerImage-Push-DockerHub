@@ -41,8 +41,8 @@ pipeline {
     stage('Docker Build') {
             steps {
                 script {
-                    sh 'docker login -u sainath15890 -p 123abc456'
-                    sh 'docker push sainath15890/my-app:latest'
+                    sh 'docker login -u sumitthelkar -p Docker@1234'
+                    sh 'docker push sumitthelkar/my-app:latest'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     // 3. Run the Container
-                    sh 'docker run -d -p 8080:8080 sainath15890/my-app:latest'
+                    sh 'docker run -d -p 8080:8080 sumitthelkar/my-app:latest'
                 }
             }
         }
