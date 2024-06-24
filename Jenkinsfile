@@ -3,11 +3,6 @@ pipeline {
     
     environment {
         SCANNER_HOME=tool 'SonarQube-Scanner'
-        PROJECT_ID='peak-axiom-426310-b1'
-        CLIENT_EMAIL='jenkins-vm-controller@peak-axiom-426310-b1.iam.gserviceaccount.com'
-        GCLOUD_CREDS=credentials('GCP-service-key')
-        IMAGE_NAME = 'hello-world'
-        DOCKER_IMAGE = ''
       }
     
   tools {
@@ -15,6 +10,23 @@ pipeline {
     }
     
  stages {
+
+        stage('Test') {
+            steps {
+                // Define steps for the Test stage
+                echo 'Running tests...'
+                sh  'mvn test'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Define steps for the Build stage
+                echo 'Building the project...'
+                sh 'mvn clean package'
+            }
+        }
+     
         stage('sonarqube-analysis') {
             steps {
                 withSonarQubeEnv('SonarQube-server') {
@@ -26,39 +38,20 @@ pipeline {
             }
         }
         
-     stage('Test') {
-            steps {
-                // Define steps for the Test stage
-                echo 'Running tests...'
-                sh  'mvn test'
-            }
-        }
-     
-    stage('Build') {
-            steps {
-                // Define steps for the Build stage
-                echo 'Building the project...'
-                sh 'mvn clean package'
-            }
-        }
-     
     stage('Docker Build') {
             steps {
                 script {
-                    // Build the Docker image
-                    DOCKER_IMAGE = "gcr.io/${env.PROJECT_ID}/${env.IMAGE_NAME}:latest"
-                    docker.build(DOCKER_IMAGE)
+                    sh 'docker login -u sainath15890 -p 123abc456'
+                    sh 'docker push sainath15890/my-app:latest'
                 }
             }
         }
      
-    stage('Docker Push') {
+     stage('Run Docker Container') {
             steps {
                 script {
-                        sh 'gcloud auth activate-service-account --key-file=${GCLOUD_CREDS}'
-                        sh 'gcloud auth configure-docker --quiet'
-                        docker.image(DOCKER_IMAGE).push()
-                    
+                    // 3. Run the Container
+                    sh 'docker run -d -p 8080:8080 sainath15890/my-app:latest'
                 }
             }
         }
