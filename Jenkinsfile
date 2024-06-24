@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     // 1. Build the Docker Image
-                    sh 'docker build -t sumitthelkar/my-app:latest .'
+                    sh 'docker build -t sumitthelkar/my-app:latest'
                 }
             }
         }
