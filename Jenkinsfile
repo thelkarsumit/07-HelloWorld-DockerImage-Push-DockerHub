@@ -29,7 +29,7 @@ pipeline {
      
         stage('sonarqube-analysis') {
             steps {
-                withSonarQubeEnv('sonar-server') {
+                withSonarQubeEnv('SonarQube-server') {
                  sh 'mvn clean verify sonar:sonar \
                     -Dsonar.projectKey=07-HelloWorld-DockerImage-Push-DockerHub \
                     -Dsonar.host.url=http://35.228.47.4:9000 \
