@@ -31,9 +31,9 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube-server') {
                  sh 'mvn clean verify sonar:sonar \
-                      -Dsonar.projectKey=HelloWorld-DockerImage-Push-GCP \
-                      -Dsonar.host.url=http://34.88.201.76.4:9000 \
-                      -Dsonar.login=sqp_0cbc01c8a34a6a1e5b3a7c3d66feee59c71b756d'
+                      -Dsonar.projectKey=07-HelloWorld-DockerImage-Push-DockerHub \
+                      -Dsonar.host.url=http://34.88.201.76:9000 \
+                      -Dsonar.login=sqp_a756c13dbb19d2b6fcf9be7e410bd0bf0c8858c3'
                 }
             }
         }
