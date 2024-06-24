@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     // 1. Build the Docker Image
-                    sh 'docker build -t sumitthelkar/my-app:latest .'
+                    sh 'docker build -t sumitthelkar/my-app1:latest .'
                 }
             }
         }
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker login -u sumitthelkar -p Docker@1234'
-                    sh 'docker push sumitthelkar/my-app:latest'
+                    sh 'docker push sumitthelkar/my-app1:latest'
                 }
             }
         }
@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     // 3. Run the Container
-                    sh 'docker run -d -p 8080:8080 sumitthelkar/my-app:latest'
+                    sh 'docker run -d -p 8080:8080 sumitthelkar/my-app1:latest'
                 }
             }
         }
